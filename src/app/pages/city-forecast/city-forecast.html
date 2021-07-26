@@ -1,0 +1,68 @@
+<div nz-row>
+  <div nz-col>
+    <h1>
+      Прогноз погоды для города {{cityData.weather?.name}}
+    </h1>
+    <button nz-button
+            (click)="!cityInFavorites ? addCityToFavorites() : deleteCityFromFavorites(cityData.weather?.name)">
+      <span *ngIf="cityInFavorites">
+        Удалить город из избранного
+      </span>
+      <span *ngIf="!cityInFavorites">
+        Добавить город в избранное
+      </span>
+    </button>
+  </div>
+</div>
+<br>
+<div class="weather-info-box" nz-row [nzGutter]="[16,0]">
+  <div nz-col nzSpan="24">
+    <h2>{{cityData.weather?.dt * 1000 | date : 'EE d.MM.YY' : null :'ru'}}</h2>
+  </div>
+  <div nz-col>
+    <img src="https://openweathermap.org/img/wn/{{cityData.weather?.weather[0]?.icon}}@2x.png" alt="">
+  </div>
+  <div nz-col>
+    <h2>{{cityData.weather?.main?.temp}} °C</h2>
+    <h3>{{cityData.weather?.weather[0].description}}</h3>
+  </div>
+  <div nz-col>
+    <p>Давление: {{cityData.weather?.main?.pressure}}</p>
+    <p>Влажность: {{cityData.weather?.main?.humidity}}</p>
+  </div>
+  <div nz-col>
+    <p>Ветер: {{cityData.weather?.wind?.speed}}</p>
+    <p>Направление: {{cityData.weather?.wind?.deg}}°</p>
+  </div>
+  <div nz-col>
+    <p>Облачность: {{cityData.weather?.clouds?.all}} %</p>
+  </div>
+  <div nz-col>
+    <p>Рассвет: {{cityData.weather?.sys?.sunrise * 1000 | date : 'hh:mm:ss'}}</p>
+    <p>Закат: {{cityData.weather?.sys?.sunset * 1000 | date : 'hh:mm:ss'}}</p>
+  </div>
+</div>
+
+<br>
+<div style="width: 100%; border-bottom: 1px solid rgba(204, 204, 204, 0.5);"></div>
+<br>
+
+<div class="forecast-info-box" nz-row [nzGutter]="[16,0]">
+  <div nz-col nzSpan="6" *ngFor="let item of cityData.forecast?.list | slice: 8; let i = index"
+       [ngClass]="i % 8 !== 0 ? 'd-none' : null">
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        {{item.dt * 1000 | date : 'EE d.MM.YY' : null :'ru'}}
+      </div>
+      <div nz-col>
+        <img src="http://openweathermap.org/img/wn/{{cityData.forecast?.list[i].weather[0].icon}}@2x.png" alt="">
+      </div>
+      <div nz-col>
+        <h2>{{cityData.forecast?.list[i].main.temp | number : '1.0-0'}} °C</h2>
+        <h3>{{cityData.forecast?.list[i].weather[0].description}}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
