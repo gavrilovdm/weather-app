@@ -1,0 +1,22 @@
+.footer-container {
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 599px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 0;
+    font-size: 0.8rem;
+  }
+}

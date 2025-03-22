@@ -1,0 +1,92 @@
+<mat-card class="weather-widget" (click)="toggleForecast()" [matTooltip]="showForecast ? 'Click to view weather details' : 'Click to view forecast'">
+  <mat-card-header (click)="$event.stopPropagation()">
+    <div class="widget-header">
+      <div class="city-info">
+        <mat-card-title>{{ cityName }}</mat-card-title>
+        <mat-card-subtitle *ngIf="weatherData">
+          {{ weatherData.current.dt * 1000 | date:dateFormat }}
+        </mat-card-subtitle>
+      </div>
+      
+      <div class="widget-actions">
+        <button mat-icon-button color="primary" (click)="refreshData()" [disabled]="loading">
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onRemove()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span>Loading weather data...</span>
+    </div>
+    
+    <div *ngIf="!loading && error" class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <span>{{ error }}</span>
+    </div>
+    
+    <div *ngIf="!loading && !error && weatherData" class="weather-content">
+      <div class="current-weather" *ngIf="!showForecast">
+        <div class="temp-description">
+          <div class="temp">
+            <span class="current-temp">{{ weatherData.current.temp | number:'1.0-0' }}°{{ units === 'metric' ? 'C' : 'F' }}</span>
+            <div class="min-max">
+              <span>Min: {{ weatherData.current.temp_min | number:'1.0-0' }}°</span>
+              <span>Max: {{ weatherData.current.temp_max | number:'1.0-0' }}°</span>
+            </div>
+          </div>
+          <div class="description">
+            <img 
+              [src]="'https://openweathermap.org/img/wn/' + weatherData.current.icon + '@2x.png'" 
+              [alt]="weatherData.current.description"
+              width="50"
+              height="50"
+            />
+            <span>{{ weatherData.current.description | titlecase }}</span>
+          </div>
+        </div>
+        
+        <div class="weather-details">
+          <div class="detail-item">
+            <mat-icon>air</mat-icon>
+            <span>Wind: {{ weatherData.current.wind_speed }} {{ units === 'metric' ? 'm/s' : 'mph' }}</span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>water_drop</mat-icon>
+            <span>Humidity: {{ weatherData.current.humidity }}%</span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>compress</mat-icon>
+            <span>Pressure: {{ weatherData.current.pressure }} hPa</span>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="showForecast" class="forecast">
+        <h3>3-Day Forecast</h3>
+        <div class="forecast-items">
+          <div class="forecast-day" *ngFor="let day of weatherData.forecast">
+            <div class="forecast-date">{{ day.dt * 1000 | date:'EEE' }}, {{ day.dt * 1000 | date:dateFormat }}</div>
+            <img 
+              [src]="'https://openweathermap.org/img/wn/' + day.icon + '.png'" 
+              [alt]="day.description"
+              width="40"
+              height="40"
+            />
+            <div class="forecast-description">{{ day.description | titlecase }}</div>
+            <div class="forecast-temp">
+              <span>{{ day.temp_min | number:'1.0-0' }}°</span>
+              <span> / </span>
+              <span>{{ day.temp_max | number:'1.0-0' }}°</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

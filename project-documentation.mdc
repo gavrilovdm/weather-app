@@ -1,0 +1,181 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Weather Dashboard Technical Documentation
+
+## Project Overview
+The Weather Dashboard is a modern Angular application designed to provide users with customizable weather widgets and real-time weather information. The application features a responsive user interface, offline support through Service Workers, and comprehensive weather data management capabilities.
+
+## Architecture
+
+### Module Structure
+- **Core Module** (`src/app/core/`): Contains essential services and singleton providers
+- **Feature Modules**:
+  - Dashboard (`src/app/features/dashboard/`)
+  - Settings (`src/app/features/settings/`)
+- **Shared Module** (`src/app/shared/`): Reusable components and utilities
+
+## Key Components
+
+### Core Services
+- **StateService** (`src/app/core/services/state.service.ts`)
+  - Manages application state
+  - Handles widget configurations
+  - Provides state persistence
+
+- **WeatherService** (`src/app/core/services/weather.service.ts`)
+  - Fetches weather data from API
+  - Manages data caching
+  - Handles API error scenarios
+
+- **StorageService** (`src/app/core/services/storage.service.ts`)
+  - Manages IndexedDB operations
+  - Handles offline data persistence
+  - Provides cache management
+
+- **ThemeService** (`src/app/core/services/theme.service.ts`)
+  - Provides theme management functionality
+  - Supports light and dark modes
+  - Automatically detects system theme preferences
+  - Enables theme customization per user preference
+  - Provides theme-related methods and observables
+
+- **LoggingService** (`src/app/core/services/logging.service.ts`)
+  - Manages application logging
+  - Handles error tracking
+  - Provides debugging utilities
+
+### Feature Components
+
+#### Dashboard Component
+- **Location**: `src/app/features/dashboard/dashboard.component.ts`
+- **Purpose**: Main view for displaying weather widgets
+- **Features**:
+  - Dynamic widget management
+  - Drag-and-drop functionality
+  - Real-time weather updates
+
+#### Weather Widget Component
+- **Location**: `src/app/features/dashboard/components/weather-widget/`
+- **Features**:
+  - Customizable display options
+  - Real-time data updates
+  - Error state handling
+
+#### Settings Component
+- **Location**: `src/app/features/settings/settings.component.ts`
+- **Purpose**: User preferences and widget configuration
+- **Features**:
+  - Widget customization
+  - User preferences management
+  - Application settings
+  - Theme selection
+
+### Shared Components
+- **Header** (`src/app/shared/components/header/`)
+  - Application navigation
+  - Theme toggle button
+- **Footer** (`src/app/shared/components/footer/`)
+- **Error Display** (`src/app/shared/components/error-display/`)
+
+## Data Models
+
+### AppState
+```typescript
+interface AppState {
+  widgets: WidgetConfig[];
+  settings: AppSettings;
+  theme: ThemeConfig;
+}
+```
+
+### WeatherData
+```typescript
+interface WeatherData {
+  temperature: number;
+  conditions: string;
+  location: string;
+  timestamp: number;
+}
+```
+
+### Settings Models
+```typescript
+interface AppSettings {
+  units: 'metric' | 'imperial';
+  language: string;
+  refreshInterval: number;
+  theme: 'light' | 'dark';
+}
+```
+
+## Key Features
+
+### Responsive UI
+- Mobile-first design
+- Adaptive layouts
+- Touch-friendly interactions
+
+### Theming
+- Light and dark theme support
+- Customizable through settings
+- Consistent styling across components
+- Automatic theme persistence
+
+### Offline Support
+- Service Worker implementation
+- IndexedDB data persistence
+- Offline-first architecture
+
+### Widget Management
+- Dynamic widget creation
+- Customizable layouts
+- Real-time updates
+
+### Customization Options
+- Theme selection
+- Unit preferences
+- Language settings
+
+### Error Handling
+- Graceful degradation
+- User-friendly error messages
+- Automatic retry mechanisms
+
+## Routes
+- `/dashboard` - Main dashboard view
+- `/settings` - Application settings
+
+## Technologies Used
+- Angular 19+
+- RxJS
+- IndexedDB
+- Service Workers
+- Angular Material
+- NgRx (planned)
+
+## Build Process
+- Standard Angular build process
+- Service Worker integration
+- Production optimizations
+
+## Deployment
+- Deployable to any static hosting
+- Firebase Hosting ready
+- PWA-compliant
+
+## Future Enhancements
+1. Multi-language support
+2. Web Worker implementation
+3. Enhanced offline capabilities
+4. Additional widget types
+5. Advanced analytics
+
+## Development Guidelines
+1. Follow Angular style guide
+2. Maintain modular architecture
+3. Write comprehensive tests
+4. Document new features
+5. Ensure accessibility compliance 

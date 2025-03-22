@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <div class="header-container">
+    <div class="logo-title">
+      <button mat-icon-button>
+        <mat-icon>wb_sunny</mat-icon>
+      </button>
+      <span class="app-title">Weather Dashboard</span>
+    </div>
+    
+    <div class="nav-items">
+      <a mat-button routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a mat-button routerLink="/settings" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </a>
+      
+      <button mat-icon-button aria-label="Toggle theme" (click)="toggleTheme()" [matTooltip]="(themePreference$ | async) === 'dark' ? 'Using dark theme' : 'Using light theme'">
+        <mat-icon>{{ getThemeIcon(themePreference$ | async) }}</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>

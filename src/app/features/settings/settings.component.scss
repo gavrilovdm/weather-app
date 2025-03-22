@@ -1,0 +1,66 @@
+.settings-container {
+  padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+h2 {
+  margin-top: 2rem;
+}
+
+mat-card {
+  margin-bottom: 1rem;
+}
+
+.form-row {
+  margin-bottom: 1.5rem;
+  
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.no-widgets-card {
+  background-color: #f5f5f5;
+  text-align: center;
+  padding: 1rem;
+  
+  p {
+    color: #757575;
+  }
+}
+
+.widget-settings-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1rem;
+  
+  @media (max-width: 599px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.widget-settings-card {
+  height: 100%;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  mat-icon {
+    margin-right: 5px;
+  }
+}

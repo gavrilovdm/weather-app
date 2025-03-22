@@ -1,0 +1,51 @@
+<div class="dashboard-container">
+  <div class="header-section">
+    <h1>Weather Dashboard</h1>
+    
+    <div class="add-widget-form" *ngIf="widgets.length < 5">
+      <mat-form-field appearance="outline">
+        <mat-label>City Name</mat-label>
+        <input matInput placeholder="Enter city name" [(ngModel)]="newCity" />
+      </mat-form-field>
+      
+      <button 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="!newCity"
+        (click)="addWidget()"
+      >
+        <mat-icon>add</mat-icon>
+        Add Widget
+      </button>
+    </div>
+    
+    <div class="error-message" *ngIf="error">
+      <mat-icon color="warn">error</mat-icon>
+      <span>{{ error }}</span>
+      <button mat-icon-button (click)="stateService.setError(null)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <div class="max-widgets-warning" *ngIf="widgets.length >= 5">
+      <mat-icon color="warn">warning</mat-icon>
+      <span>Maximum number of widgets (5) reached.</span>
+    </div>
+  </div>
+  
+  <div class="widgets-container">
+    <div *ngIf="widgets.length === 0" class="no-widgets">
+      <mat-icon>cloud_off</mat-icon>
+      <p>No weather widgets added yet. Add a city to get started!</p>
+    </div>
+    
+    <div class="widgets-grid" *ngIf="widgets.length > 0">
+      <app-weather-widget 
+        *ngFor="let widget of widgets; let i = index" 
+        [cityName]="widget.city"
+        [widgetIndex]="i"
+        (remove)="removeWidget(i)"
+      ></app-weather-widget>
+    </div>
+  </div>
+</div>

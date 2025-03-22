@@ -1,0 +1,112 @@
+<div class="settings-container">
+  <h1>Settings</h1>
+  
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Global Settings</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="settingsForm">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Units</mat-label>
+            <mat-select formControlName="units">
+              <mat-option value="metric">Metric (°C, m/s)</mat-option>
+              <mat-option value="imperial">Imperial (°F, mph)</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Date Format</mat-label>
+            <mat-select formControlName="dateFormat">
+              <mat-option value="dd/MM/yyyy">DD/MM/YYYY</mat-option>
+              <mat-option value="MM/dd/yyyy">MM/DD/YYYY</mat-option>
+              <mat-option value="yyyy-MM-dd">YYYY-MM-DD</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Language</mat-label>
+            <mat-select formControlName="language">
+              <mat-option value="en">English</mat-option>
+              <mat-option value="ru">Russian</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Theme</mat-label>
+            <mat-select formControlName="themeMode">
+              <mat-option value="light">
+                <div class="theme-option">
+                  <mat-icon>light_mode</mat-icon>
+                  <span>Light Theme</span>
+                </div>
+              </mat-option>
+              <mat-option value="dark">
+                <div class="theme-option">
+                  <mat-icon>dark_mode</mat-icon>
+                  <span>Dark Theme</span>
+                </div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
+  <h2>Widget Settings</h2>
+  
+  <mat-card *ngIf="widgets.length === 0" class="no-widgets-card">
+    <mat-card-content>
+      <p>No weather widgets added yet. Go to the Dashboard to add widgets.</p>
+    </mat-card-content>
+  </mat-card>
+  
+  <div class="widget-settings-list" *ngIf="widgets.length > 0">
+    <mat-card *ngFor="let widget of widgets; let i = index" class="widget-settings-card">
+      <mat-card-header>
+        <mat-card-title>{{ widget.city }}</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="getWidgetForm(i)">
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Units</mat-label>
+              <mat-select formControlName="units">
+                <mat-option value="metric">Metric (°C, m/s)</mat-option>
+                <mat-option value="imperial">Imperial (°F, mph)</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Date Format</mat-label>
+              <mat-select formControlName="dateFormat">
+                <mat-option value="dd/MM/yyyy">DD/MM/YYYY</mat-option>
+                <mat-option value="MM/dd/yyyy">MM/DD/YYYY</mat-option>
+                <mat-option value="yyyy-MM-dd">YYYY-MM-DD</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Refresh Interval (minutes)</mat-label>
+              <input matInput type="number" formControlName="refreshInterval" min="1" max="60">
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
