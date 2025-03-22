@@ -1,16 +1,12 @@
-import {Component, OnInit} from '@angular/core'
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['../assets/styles/app.component.less']
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
-    isCollapsed = false
-
-    ngOnInit(): void {
-        if (!localStorage.getItem('favorites') || localStorage.getItem('favorites') === '[]') {
-            localStorage.setItem('favorites', '["Москва", "Лондон"]')
-        }
-    }
+export class AppComponent {
+  title = 'weather-app';
 }
